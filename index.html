@@ -60,7 +60,7 @@
                 <div class="col m6 s12">
                     <h5>Nearby schools</h5>
                     <div ng-repeat="school in result.nearby_school" class="col s12">
-                        <h6><a ng-href="school.school_url">{{ school.name }}-{{ school.school_sector }}</a></h6>
+                        <h6><a ng-href="{{school.school_url}}">{{ school.name }}-{{ school.school_sector }}</a></h6>
                         <div ng-if="school.is_primary">
                             <h7><u>Primary</u></h7>
                             <ul>
