@@ -191,6 +191,7 @@
             var backend_url = 'https://aureview.tdk-company.com/'
             $scope.getPos = function() {
                 $scope.is_loading = true;
+                $scope.showError = false;
                 function success(position) {
                     const latitude  = position.coords.latitude;
                     const longitude = position.coords.longitude;
@@ -203,7 +204,7 @@
                             })
                             .success(function(data) {
                                 $scope.is_loading = false;
-                                if (JSON.stringify(data) == "{}") {
+                                if (JSON.stringify(data) === JSON.stringify({})) {
                                     $scope.showError = true;
                                 } else {
                                     $scope.result = data;
@@ -221,15 +222,20 @@
             $scope.submitForm = function() {
                 $scope.is_loading = true;
                 $scope.showResult = false;
+                $scope.showError = false;
                 $http({
                   method  : 'GET',
                   url     : backend_url + 'location/' + $scope.address,
                   headers : { 'Content-Type': 'application/json' }
                  })
                   .success(function(data) {
-                    $scope.result = data;
+                    if (JSON.stringify(data) === JSON.stringify({})) {
+                        $scope.showError = true;
+                    } else {
+                        $scope.result = data;
+                        $scope.showResult = true;
+                    }
                     $scope.is_loading = false;
-                    $scope.showResult = true;
                   });
             };
         });
