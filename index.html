@@ -202,7 +202,7 @@
                             })
                             .success(function(data) {
                                 $scope.is_loading = false;
-                                if (data) {
+                                if (Object.keys(data).length > 0) {
                                     $scope.result = data;
                                     $scope.showResult = true;
                                 } else {
