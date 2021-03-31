@@ -51,6 +51,9 @@
             </div>
         </form>
         </div>
+        <div ng-show="showError">
+            <p> Unable to detect your address. Please type other address in Australia.</p>
+        </div>
         <div ng-show="showResult">
             <p>Below is the suburb review for<b> {{ result.address }}: </b></p>
             <div class="row">
@@ -198,9 +201,13 @@
                             headers : { 'Content-Type': 'application/json' }
                             })
                             .success(function(data) {
-                                $scope.result = data;
-                                $scope.showResult = true;
                                 $scope.is_loading = false;
+                                if (data) {
+                                    $scope.result = data;
+                                    $scope.showResult = true;
+                                } else {
+                                    $scope.showError = true;
+                                }
                             });
                     });
                 }
