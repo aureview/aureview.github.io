@@ -187,6 +187,7 @@
             $scope.address = "";
             $scope.is_loading = false;
             $scope.showResult = false;
+            scope.showError = false;
             var backend_url = 'https://aureview.tdk-company.com/'
             $scope.getPos = function() {
                 $scope.is_loading = true;
@@ -202,11 +203,11 @@
                             })
                             .success(function(data) {
                                 $scope.is_loading = false;
-                                if (Object.keys(data).length > 0) {
+                                if (JSON.stringify(data) == "{}") {
+                                    $scope.showError = true;
+                                } else {
                                     $scope.result = data;
                                     $scope.showResult = true;
-                                } else {
-                                    $scope.showError = true;
                                 }
                             });
                     });
